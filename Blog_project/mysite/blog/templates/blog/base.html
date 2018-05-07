@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+	<title>Blog</title>
+	{# Boostrap #}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+	{# Medium Text Editor #}
+	<script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+	{# font-awesome #}
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+	{# CSS #}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+
+	{# Google Fonts #}
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light techfont custom-navbar">
+		<div>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="navbar-brand bigbrand" href="{% url 'post_list' %}">My Blog</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'about' %}">About</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="https://www.github.com">Github</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="https://www.linkedin.com">LinkedIn</a>
+				</li>
+			</ul>
+
+			<ul class="navbar-nav">
+
+				{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'post_new' %}">New Post</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'post_draft_list' %}">Draft</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">Welcome: {{ user.username }}</a>
+					</li>
+
+				{% else %}
+					<li>
+						<a href="{% url 'login' %}">
+							<i class="fas fa-user"></i>
+						</a>
+					</li>
+				{% endif %}	
+			</ul>
+		</div>
+	</nav>
+
+	<div class="content container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="blog_post">
+					{% block content %}
+						
+					{% endblock content %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
