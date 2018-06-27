@@ -1,0 +1,19 @@
+<h1>There are {{ count }} words in your text.</h1>
+
+<a href="{% url 'home' %}">
+	<input type="submit" name="back" value="Start Again">
+</a>
+
+<h2>Your Text:</h2>
+{{ fulltext }}
+
+<br>
+
+<h2>Word Count:</h2>
+
+{% for word, totalCount in sortedWords %}
+
+{{ word }}: {{ totalCount }}
+<br>
+	
+{% endfor %}
